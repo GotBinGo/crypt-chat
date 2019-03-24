@@ -1,3 +1,3 @@
-[](./doc/name.png)
-[](./doc/to.png)
-[](./doc/send.png)
+![](doc/name.png)
+![](doc/to.png)
+![](doc/send.png)
