@@ -1,0 +1,29 @@
+{
+  "name": "crypt-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "build.bat",
+    "clean": "rm -rf dist",
+    "build": "tsc",
+    "lint": "tslint --project tslint.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.16.1",
+    "@types/express-ws": "^3.0.0",
+    "@types/node": "^10.12.2",
+    "@types/rsmq": "^0.3.27",
+    "express": "^4.16.4",
+    "express-ws": "^4.0.0",
+    "rsmq": "^0.10.0",
+    "rsmq-worker": "^0.5.2"
+  },
+  "devDependencies": {
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6"
+  }
+}

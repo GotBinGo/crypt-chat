@@ -1,0 +1,86 @@
+button {
+    outline: none !important;
+}
+.main-container {
+    width: 100%;
+    height: 100%;
+}
+.main {
+    overflow: hidden;
+}
+.sidebar {
+    width: 100%;
+}
+
+.inner {
+    height: 100%;
+}
+
+.menu-fixed {
+    position: fixed;
+    right:0px;
+    top:0px;
+    z-index: 1000;
+}
+
+.send {
+    margin-left: -10px;
+}
+
+.red {
+    height: 1px;
+    background: lightgray;
+    margin-bottom:-3px;
+}
+
+.blue {
+    background: blue;
+}
+
+.texts {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ot {
+    overflow: hidden;
+}
+
+.send-bar {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+mat-chip {
+    height: auto;
+    max-width: 300px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+  
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.tt {
+    flex:1 1 10px;
+}
+
+.frame {
+    width: 100%;
+    height: 100%;
+}
+
+.chat-user {
+    position: absolute;
+    z-index: 100;
+    top: -15px;
+    font-size: 79%;
+}

@@ -1,0 +1,1 @@
+bash -c "nodemon dist & tsc --watch"
