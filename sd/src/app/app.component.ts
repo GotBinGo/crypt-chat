@@ -27,7 +27,7 @@ export class AppComponent {
   }
 
   send = () => {
-    const msg = new Message({ message: this.chatInput.value, to: this.cs.to, from: this.cs.name});
+    const msg = new Message({ message: this.chatInput.value, to: this.cs.to, from: this.cs.name, self: undefined});
     this.cs.ws.send(JSON.stringify(msg));
     // this.messages.push({message: this.chatInput.value, self: false, sender: 'afd'});
     this.chatInput.setValue('');
