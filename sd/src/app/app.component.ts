@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ConnectionService } from './connection.service';
 import { FormControl, Validators } from '@angular/forms';
 import { Message } from './Message';
+declare var cryptoLib: any;
 
 @Component({
   selector: 'app-root',
