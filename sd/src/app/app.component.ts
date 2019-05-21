@@ -8,6 +8,7 @@ import { Message } from './Message';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   messages = [];
   chatInput = new FormControl('', []);
@@ -16,6 +17,10 @@ export class AppComponent {
 
   constructor(private cs: ConnectionService) {
     cs.onMessage.subscribe(this.onMessage);
+    cryptoLib.createKeyPair().then(keyPair => {
+      const a = cryptoLib.createSign(keyPair.privateKey, 'alma-áéáű');
+      console.log(a);
+    });
   }
 
   onMessage = (m) => {
