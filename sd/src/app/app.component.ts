@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ConnectionService } from './connection.service';
 import { FormControl, Validators } from '@angular/forms';
 import { Message } from './Message';
-import { CssKeyframesDriver } from '@angular/animations/browser/src/render/css_keyframes/css_keyframes_driver';
 
 @Component({
   selector: 'app-root',
