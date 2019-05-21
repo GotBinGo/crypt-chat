@@ -1,8 +1,8 @@
 export class Message {
 
-    static num = 0
+    static num = 0;
     constructor(o: Message) {
-        Object.assign(this, o)
+        Object.assign(this, o);
         this.num = Message.num++;
     }
 
