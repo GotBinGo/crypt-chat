@@ -40,7 +40,7 @@ export class ConnectionService {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.name = result;
-      this.ws = new this.wsImpl('ws://' + location.host + ':4201/' + this.name);
+      this.ws = new this.wsImpl('ws://' + location.hostname + ':4201/' + this.name);
       this.ws.onmessage = (evt) => {
         this.subj.next(evt.data);
       };
