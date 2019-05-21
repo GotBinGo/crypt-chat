@@ -22,6 +22,7 @@ export class AppComponent {
   onMessage = (m) => {
     console.log(m);
     const msg = new Message(JSON.parse(m));
+    msg.self = msg.from === this.cs.name;
     this.messages.push(msg);
     setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); }, 100);
   }

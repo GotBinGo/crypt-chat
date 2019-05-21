@@ -17,6 +17,11 @@ export class MessageController {
         if (resp2) {
             console.log("message sent to: ", msg.to, resp2);
         }
+        var resp3 = await this.rsmq.sendMessageAsync({qname: msg.from, message: JSON.stringify(msg)});
+        if (resp3) {
+            console.log("message sent to: ", msg.to, resp3);
+        }
+        
     }
 
     async getMessage(userName: string): Promise<any> {
