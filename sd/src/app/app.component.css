@@ -78,11 +78,4 @@ mat-chip {
     height: 100%;
 }
 
-.chat-user {
-    position: absolute;
-    z-index: 100;
-    top: -15px;
-    font-size: 79%;
-}
-
 

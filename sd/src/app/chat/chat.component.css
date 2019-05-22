@@ -1,0 +1,11 @@
+.chat-scroll {
+    overflow-y: auto;
+    height: calc(100% - 100px);;
+}
+
+.chat-user {
+    position: absolute;
+    z-index: 100;
+    top: -15px;
+    font-size: 79%;
+}

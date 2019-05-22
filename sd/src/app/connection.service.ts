@@ -2,6 +2,7 @@ import { Injectable, Component, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { PromptComponent } from './prompt/prompt.component';
+import { Message } from './Message';
 declare var cryptoLib: any;
 
 @Injectable({
@@ -52,5 +53,10 @@ export class ConnectionService {
     .then(x => String.fromCharCode.apply(null, new Uint8Array(x)))
     .then(x => encodeURIComponent(btoa(x)))
     .then(x => x.split('%').join(''));
+  }
+
+  send = (to: string, msg: Message) => {
+    this.ws.send(JSON.stringify({to, msg}));
+    setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); });
   }
 }

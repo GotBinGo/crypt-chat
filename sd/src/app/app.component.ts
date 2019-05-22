@@ -20,10 +20,10 @@ declare var cryptoLib: any;
 
 export class AppComponent implements OnInit {
   messages = [];
-  chatInput = new FormControl('', []);
   placeholder = '';
   color = 'primary';
   groups = [];
+  selectedGroup = null;
 
   constructor(private cs: ConnectionService,
     private friendsService: FriendsService,
@@ -36,25 +36,18 @@ export class AppComponent implements OnInit {
     this.groups = this.groupService.getGroups();
   }
 
-  onMessage = (m) => {
+  onMessage = async (m) => {
     const msg = JSON.parse(m);
     console.log(msg);
     if (msg.msg.type === 'HELLO') {
-      this.groupService.addGroup(<Group>{name: msg.msg.guid, users: msg.msg.participants});
+      this.groupService.addGroup(<Group>{name: msg.msg.guid, users: [...msg.msg.participants, msg.msg.from]});
       this.groups = this.groupService.getGroups();
     } else if (msg.msg.type === 'MESSAGE') {
-      msg.self = true;
+      msg.self = await this.cs.hashString(msg.msg.from) === msg.to;
       this.messages.push(msg);
-      setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); }, 100);
-    }
-  }
 
-  send = (to: string, msg: Message) => {
-    // const msg = new Message({ message: this.chatInput.value, to: this.cs.to, from: this.cs.name, self: undefined});
-    this.cs.ws.send(JSON.stringify({to, msg}));
-    // this.messages.push({message: this.chatInput.value, self: false, sender: 'afd'});
-    this.chatInput.setValue('');
-    setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); });
+      setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); }, 1);
+    }
   }
 
   showPublicKey = () => {
@@ -104,10 +97,9 @@ export class AppComponent implements OnInit {
           ts: + new Date(),
           participants: x.users.map(y => y.publicKey)
         });
-        this.send(await this.cs.hashString(JSON.parse(localStorage.keyPair).publicKey), a);
-        for (const f of x.users.map(y => y.publicKey)) {
-          this.send(await this.cs.hashString(f), a);
-
+        this.cs.send(await this.cs.hashString(JSON.parse(localStorage.keyPair).publicKey), a); // self
+        for (const f of x.users.map(y => y.publicKey)) { // group
+          this.cs.send(await this.cs.hashString(f), a);
         }
       }
     });
@@ -115,6 +107,7 @@ export class AppComponent implements OnInit {
 
   openGroup = (g: Group) => {
     console.log(g);
+    this.selectedGroup = g;
   }
 
 }
