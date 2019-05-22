@@ -1,6 +1,7 @@
 import { Injectable, Component, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { PromptComponent } from './prompt/prompt.component';
 declare var cryptoLib: any;
 
 @Injectable({
@@ -13,8 +14,8 @@ export class ConnectionService {
   subj = new Subject<number>();
   onMessage = this.subj.asObservable();
 
-  name: string = null;
   to: string = null;
+  name: string = null;
 
   constructor(public dialog: MatDialog) {
     console.log('connected');
@@ -30,12 +31,25 @@ export class ConnectionService {
     }
   }
 
-  connect = (keyPair) => {
+  connect = async (keyPair) => {
+      this.name = await this.hashString(keyPair.publicKey);
       this.ws = new this.wsImpl('ws://' + location.hostname + ':4201/' + this.name);
       this.ws.onmessage = (evt) => {
         this.subj.next(evt.data);
       };
       this.ws.onopen = () => {
       };
+  }
+
+  hashString(str) {
+    const buf = new ArrayBuffer(str.length * 2);
+    const bufView = new Uint16Array(buf);
+    for (let i = 0, strLen = str.length; i < strLen; i++) {
+      bufView[i] = str.charCodeAt(i);
+    }
+    return crypto.subtle.digest('SHA-256', buf)
+    .then(x => String.fromCharCode.apply(null, new Uint8Array(x)))
+    .then(x => encodeURIComponent(btoa(x)))
+    .then(x => x.split('%').join(''));
   }
 }

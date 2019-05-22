@@ -11,9 +11,9 @@ import { FriendsService } from '../friends.service';
 
 export class FriendsComponent implements OnInit {
   dataSource = new MatTableDataSource<Friend>([]);
-  displayedColumns: string[] = ['name'];
+  displayedColumns: string[] = ['name', 'columndelete'];
   constructor(private friendsService: FriendsService) {
-    this.dataSource = new MatTableDataSource<Friend>(friendsService.friends);
+    this.dataSource = new MatTableDataSource<Friend>(this.friendsService.getFriends());
   }
 
   ngOnInit() {

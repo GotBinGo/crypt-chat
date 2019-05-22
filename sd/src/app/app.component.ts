@@ -7,6 +7,8 @@ import { PromptComponent } from './prompt/prompt.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AddFriendComponent } from './add-friend/add-friend.component';
 import { FriendsService } from './friends.service';
+import { CreateGroupComponent } from './create-group/create-group.component';
+import { GroupService } from './group.service';
 declare var cryptoLib: any;
 
 @Component({
@@ -21,7 +23,10 @@ export class AppComponent {
   placeholder = '';
   color = 'primary';
 
-  constructor(private cs: ConnectionService, private friendsService: FriendsService, public dialog: MatDialog) {
+  constructor(private cs: ConnectionService,
+    private friendsService: FriendsService,
+    private groupService: GroupService,
+    public dialog: MatDialog) {
     cs.onMessage.subscribe(this.onMessage);
   }
 
@@ -67,7 +72,21 @@ export class AppComponent {
     });
     dialogRef.afterClosed().subscribe(x => {
       if (x) {
-        this.friendsService.friends.push(x);
+        this.friendsService.addFriend(x);
+      }
+    });
+  }
+
+  createGroup = () => {
+    const dialogRef = this.dialog.open(CreateGroupComponent, {
+      width: '40%',
+      data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe(x => {
+      if (x) {
+        this.groupService.addGroup(x);
+        console.log(this.groupService.getGroups());
       }
     });
   }
