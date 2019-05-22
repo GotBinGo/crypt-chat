@@ -15,8 +15,8 @@
     <div class="d-flex w-100">
       <div class="flex-grow-1 p-2">
         <form>
-          <mat-form-field  class="w-100" [color]="color">
-            <input [placeholder]="placeholder" matInput name="ch" id="d" (keyup.enter)="onSend()" [(ngModel)]="chatInput">
+          <mat-form-field  class="w-100">
+            <input matInput name="ch" id="d" (keyup.enter)="onSend()" [(ngModel)]="chatInput">
           </mat-form-field>
         </form>
       </div>

@@ -23,7 +23,7 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSend = async (to: string, msg: Message) => {
+  onSend = async () => {
     const a = new Message({
       type: 'MESSAGE',
       from: JSON.parse(localStorage.keyPair).publicKey,
