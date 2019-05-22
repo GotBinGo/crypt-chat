@@ -10,6 +10,7 @@ import { PromptComponent } from './prompt/prompt.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AddFriendComponent } from './add-friend/add-friend.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
+import { ChatComponent } from './chat/chat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +18,7 @@ import { CreateGroupComponent } from './create-group/create-group.component';
     FriendsComponent,
     AddFriendComponent,
     CreateGroupComponent,
+    ChatComponent,
   ],
   imports: [
     FormsModule,

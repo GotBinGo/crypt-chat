@@ -10,7 +10,6 @@ import { FriendsService } from './friends.service';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { GroupService } from './group.service';
 import { Group } from './Group';
-import { Group } from 'three';
 declare var cryptoLib: any;
 
 @Component({
@@ -38,19 +37,23 @@ export class AppComponent implements OnInit {
   }
 
   onMessage = (m) => {
-    console.log(m);
-    const msg = new Message(JSON.parse(m));
-    msg.self = msg.from === this.cs.name;
-    this.messages.push(msg);
-    setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); }, 100);
+    const msg = JSON.parse(m);
+    console.log(msg);
+    if (msg.msg.type === 'HELLO') {
+      this.groupService.addGroup(<Group>{name: msg.msg.guid, users: msg.msg.participants});
+      this.groups = this.groupService.getGroups();
+    } else if (msg.msg.type === 'MESSAGE') {
+      msg.self = true;
+      this.messages.push(msg);
+      setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); }, 100);
+    }
   }
 
-  send = () => {
-    const msg = new Message({ message: this.chatInput.value, to: this.cs.to, from: this.cs.name, self: undefined});
-    this.cs.ws.send(JSON.stringify(msg));
+  send = (to: string, msg: Message) => {
+    // const msg = new Message({ message: this.chatInput.value, to: this.cs.to, from: this.cs.name, self: undefined});
+    this.cs.ws.send(JSON.stringify({to, msg}));
     // this.messages.push({message: this.chatInput.value, self: false, sender: 'afd'});
     this.chatInput.setValue('');
-    console.log(scroll);
     setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); });
   }
 
@@ -92,11 +95,20 @@ export class AppComponent implements OnInit {
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
     });
-    dialogRef.afterClosed().subscribe((x: Group) => {
+    dialogRef.afterClosed().subscribe(async (x: Group) => {
       if (x && x.name && x.users.length) {
-        this.groupService.addGroup(x);
-        this.groups = this.groupService.getGroups();
-        console.log(this.groups);
+        const a = new Message({
+          type: 'HELLO',
+          from: JSON.parse(localStorage.keyPair).publicKey,
+          guid: x.name,
+          ts: + new Date(),
+          participants: x.users.map(y => y.publicKey)
+        });
+        this.send(await this.cs.hashString(JSON.parse(localStorage.keyPair).publicKey), a);
+        for (const f of x.users.map(y => y.publicKey)) {
+          this.send(await this.cs.hashString(f), a);
+
+        }
       }
     });
   }

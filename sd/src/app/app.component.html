@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container h-100" >
-  <mat-drawer #drawer class="example-sidenav" mode="side">
+  <mat-drawer opened="true" #drawer class="example-sidenav" mode="side">
     <div class="row">
       <button class="w-100 mt-2" (click)="addFriend()" mat-raised-button>
         Add Friend
@@ -38,6 +38,9 @@
         <mat-icon class="">menu</mat-icon>
       </button>
     </div>
+    <app-chat>
+      
+    </app-chat>
     <div class="d-flex flex-grow-1 flex-column h-90">
       <div class="texts d-flex flex-grow-1 flex-column tt" id="scroll">
         <div class="row sidebar">
