@@ -44,6 +44,11 @@ export class AppComponent implements OnInit {
       this.groups = this.groupService.getGroups();
     } else if (msg.msg.type === 'MESSAGE') {
       msg.self = await this.cs.hashString(msg.msg.from) === msg.to;
+      if (!msg.self) {
+        console.log(this.friendsService.getFriends().map(x => x.publicKey.trim())[0]);
+        console.log(msg.msg.from.trim());
+        msg.fromName = this.friendsService.getFriends().filter(x => msg.msg.from.trim() === x.publicKey.trim())[0].name;
+      }
       this.messages.push(msg);
 
       setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); }, 1);

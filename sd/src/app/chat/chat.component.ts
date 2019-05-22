@@ -15,7 +15,7 @@ export class ChatComponent implements OnInit {
 
   chatInput = '';
   @Input()
-  messages: Message[] = [];
+  messages: any = [];
 
   @Input()
   group: Group = null;
