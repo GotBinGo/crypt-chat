@@ -1,0 +1,13 @@
+<h4>
+  {{text}}
+</h4>
+<div class="w-100 d-flex justify-content-center">
+  <pre *ngIf="pre">{{pre}}</pre>
+  <mat-form-field *ngIf="!pre">
+    <input matInput autofocus (keyup.enter)="onClick()" [(ngModel)]="data.name">
+  </mat-form-field>
+</div>
+
+<button mat-raised-button color="primary" class="float-right" [mat-dialog-close]="data.name">
+  Ok
+</button>

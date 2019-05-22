@@ -1,22 +1,7 @@
 import { Injectable, Component, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-
-@Component({
-  template: '<h4>{{text}}</h4><mat-form-field class="w-100"><input matInput autofocus (keyup.enter)="onClick()" [(ngModel)]="data.name"></mat-form-field> <button mat-button class="float-right" [mat-dialog-close]="data.name">Ok</button>',
-})
-export class PromptComponent {
-
-  constructor(
-    public dialogRef: MatDialogRef<PromptComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
-
-  text = 'Mi legyen a neved?';
-
-  onClick(): void {
-    this.dialogRef.close(this.data.name);
-  }
-}
+declare var cryptoLib: any;
 
 @Injectable({
   providedIn: 'root'
@@ -33,28 +18,24 @@ export class ConnectionService {
 
   constructor(public dialog: MatDialog) {
     console.log('connected');
-    const dialogRef = this.dialog.open(PromptComponent, {
-      width: '260px',
-      data: {name: ''},
-      disableClose: true
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.name = result;
+
+    if (localStorage.keyPair) {
+      const savedKey = JSON.parse(localStorage.keyPair);
+      this.connect(savedKey);
+    } else {
+      cryptoLib.createKeyPair().then(keyPair => {
+        localStorage.keyPair = JSON.stringify(keyPair);
+        this.connect(keyPair);
+      });
+    }
+  }
+
+  connect = (keyPair) => {
       this.ws = new this.wsImpl('ws://' + location.hostname + ':4201/' + this.name);
       this.ws.onmessage = (evt) => {
         this.subj.next(evt.data);
       };
       this.ws.onopen = () => {
-        const dialogRef2 = this.dialog.open(PromptComponent, {
-          width: '260px',
-          data: {name: ''},
-          disableClose: true
-        });
-        dialogRef2.componentInstance.text = 'Kinek küldesz?';
-        dialogRef2.afterClosed().subscribe(result2 => {
-          this.to = result2;
-        });
       };
-    });
   }
 }

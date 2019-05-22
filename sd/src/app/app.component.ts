@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { ConnectionService } from './connection.service';
 import { FormControl, Validators } from '@angular/forms';
 import { Message } from './Message';
+import { MatDialog } from '@angular/material';
+import { PromptComponent } from './prompt/prompt.component';
+import { FriendsComponent } from './friends/friends.component';
+import { AddFriendComponent } from './add-friend/add-friend.component';
+import { FriendsService } from './friends.service';
 declare var cryptoLib: any;
 
 @Component({
@@ -16,12 +21,8 @@ export class AppComponent {
   placeholder = '';
   color = 'primary';
 
-  constructor(private cs: ConnectionService) {
+  constructor(private cs: ConnectionService, private friendsService: FriendsService, public dialog: MatDialog) {
     cs.onMessage.subscribe(this.onMessage);
-    cryptoLib.createKeyPair().then(keyPair => {
-      const a = cryptoLib.createSign(keyPair.privateKey, 'alma-áéáű');
-      console.log(a);
-    });
   }
 
   onMessage = (m) => {
@@ -40,5 +41,36 @@ export class AppComponent {
     console.log(scroll);
     setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); });
   }
+
+  showPublicKey = () => {
+    const dialogRef = this.dialog.open(PromptComponent, {
+      width: '40%',
+      data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
+      disableClose: false
+    });
+    dialogRef.componentInstance.text = '';
+  }
+
+  listFriends = () => {
+    const dialogRef = this.dialog.open(FriendsComponent, {
+      width: '40%',
+      data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
+      disableClose: false
+    });
+  }
+
+  addFriend = () => {
+    const dialogRef = this.dialog.open(AddFriendComponent, {
+      width: '40%',
+      data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe(x => {
+      if (x) {
+        this.friendsService.friends.push(x);
+      }
+    });
+  }
+
 }
 

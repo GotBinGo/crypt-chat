@@ -1,34 +1,57 @@
-    <div class="h-100 d-flex justify-content-between flex-column ot">
-      <div class="row mb-2">
-        <button class="col-1 h-100" mat-button>
-          <mat-icon class="">menu</mat-icon>
-        </button>
+<mat-drawer-container class="example-container h-100" >
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div class="row">
+      <button class="w-100 mt-2" (click)="addFriend()" mat-raised-button>
+        Add Friend
+      </button>
+    </div>
+    <div class="row">
+      <button class="w-100 mt-2" (click)="listFriends()" mat-raised-button>
+        List Friends
+      </button>
+    </div>
+    <div class="row">
+      <button class="w-100 mt-2" (click)="showPublicKey()" mat-raised-button>
+        Show Public Key
+      </button>
+    </div>
+</mat-drawer>
+
+
+
+
+  <div class="h-100 d-flex justify-content-between flex-column ot example-sidenav-content">
+    <div class="row mb-2">
+      <button class="" mat-button (click)="drawer.toggle()">
+        <mat-icon class="">menu</mat-icon>
+      </button>
+    </div>
+    <div class="d-flex flex-grow-1 flex-column h-90">
+      <div class="texts d-flex flex-grow-1 flex-column tt" id="scroll">
+        <div class="row sidebar">
+        <div class="col-12 d-flex" [class.mt-3]="!item.self" [class.mt-1]="item.self" [class.justify-content-start]="!item.self" [class.justify-content-end]="item.self" *ngFor="let item of messages">
+          <span *ngIf="!item.self" class="chat-user">{{item.from}}</span>
+          <mat-chip-list class="mr-2">
+            <mat-chip color="primary" [selected]="item.self">{{item.message}}</mat-chip>
+          </mat-chip-list>
+        </div>
       </div>
-      <div class="d-flex flex-grow-1 flex-column h-90">
-        <div class="texts d-flex flex-grow-1 flex-column tt" id="scroll">
-          <div class="row sidebar">
-          <div class="col-12 d-flex" [class.mt-3]="!item.self" [class.mt-1]="item.self" [class.justify-content-start]="!item.self" [class.justify-content-end]="item.self" *ngFor="let item of messages">
-            <span *ngIf="!item.self" class="chat-user">{{item.from}}</span>
-            <mat-chip-list class="mr-2">
-              <mat-chip color="primary" [selected]="item.self">{{item.message}}</mat-chip>
-            </mat-chip-list>
-          </div>
-        </div>
-        </div>
-      </div>
-      <div class="red"></div>
-      <div class="row send-bar">
-        <div class="d-flex w-100">
-          <div class="flex-grow-1 p-2">
-            <form>
-              <mat-form-field  class="w-100" [color]="color">
-                <input [placeholder]="placeholder" matInput name="ch" id="d" (keyup.enter)="send()" [formControl]="chatInput">
-              </mat-form-field>
-            </form>
-          </div>
-          <button mat-button (click)="send()" class="send">
-            <mat-icon>send</mat-icon>
-          </button>
-        </div>
       </div>
     </div>
+    <div class="red"></div>
+    <div class="row send-bar">
+      <div class="d-flex w-100">
+        <div class="flex-grow-1 p-2">
+          <form>
+            <mat-form-field  class="w-100" [color]="color">
+              <input [placeholder]="placeholder" matInput name="ch" id="d" (keyup.enter)="send()" [formControl]="chatInput">
+            </mat-form-field>
+          </form>
+        </div>
+        <button mat-button (click)="send()" class="send">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-drawer-container>
