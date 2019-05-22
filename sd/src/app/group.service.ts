@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Group } from 'three';
+import { Group } from './Group';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +8,13 @@ export class GroupService {
 
   constructor() { }
 
-  groups = [];
   addGroup(g: Group) {
-    this.groups.push(g);
+    const groups = this.getGroups();
+    groups.push(g);
+    localStorage.groups = JSON.stringify(groups);
   }
 
   getGroups() {
-    return this.groups;
+    return JSON.parse(localStorage.groups || '[]');
   }
 }

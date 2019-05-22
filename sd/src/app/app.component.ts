@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConnectionService } from './connection.service';
 import { FormControl, Validators } from '@angular/forms';
 import { Message } from './Message';
@@ -9,6 +9,8 @@ import { AddFriendComponent } from './add-friend/add-friend.component';
 import { FriendsService } from './friends.service';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { GroupService } from './group.service';
+import { Group } from './Group';
+import { Group } from 'three';
 declare var cryptoLib: any;
 
 @Component({
@@ -17,17 +19,22 @@ declare var cryptoLib: any;
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   messages = [];
   chatInput = new FormControl('', []);
   placeholder = '';
   color = 'primary';
+  groups = [];
 
   constructor(private cs: ConnectionService,
     private friendsService: FriendsService,
     private groupService: GroupService,
     public dialog: MatDialog) {
     cs.onMessage.subscribe(this.onMessage);
+  }
+
+  ngOnInit() {
+    this.groups = this.groupService.getGroups();
   }
 
   onMessage = (m) => {
@@ -59,6 +66,7 @@ export class AppComponent {
   listFriends = () => {
     const dialogRef = this.dialog.open(FriendsComponent, {
       width: '40%',
+      height: '60%',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
     });
@@ -80,15 +88,21 @@ export class AppComponent {
   createGroup = () => {
     const dialogRef = this.dialog.open(CreateGroupComponent, {
       width: '40%',
+      height: '60%',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
     });
-    dialogRef.afterClosed().subscribe(x => {
-      if (x) {
+    dialogRef.afterClosed().subscribe((x: Group) => {
+      if (x && x.name && x.users.length) {
         this.groupService.addGroup(x);
-        console.log(this.groupService.getGroups());
+        this.groups = this.groupService.getGroups();
+        console.log(this.groups);
       }
     });
+  }
+
+  openGroup = (g: Group) => {
+    console.log(g);
   }
 
 }

@@ -22,5 +22,6 @@ export class FriendsComponent implements OnInit {
   delete(elm) {
     this.dataSource.data = this.dataSource.data
       .filter(i => i !== elm);
+    this.friendsService.setFriends(this.dataSource.data);
   }
 }

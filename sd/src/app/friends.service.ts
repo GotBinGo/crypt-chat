@@ -18,4 +18,8 @@ export class FriendsService {
   getFriends(): Friend[] {
     return JSON.parse(localStorage.friends || '[]');
   }
+
+  setFriends(friends: Friend[]) {
+    localStorage.friends = JSON.stringify(friends);
+  }
 }

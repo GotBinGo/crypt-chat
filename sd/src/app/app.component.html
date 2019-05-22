@@ -20,6 +20,13 @@
         Create Group
       </button>
     </div>
+    <br>
+    <br>
+    <div class="row" *ngFor="let a of groups">
+      <button class="w-100 mt-2" (click)="openGroup(a)" mat-raised-button>
+          {{a.name}}
+      </button>
+    </div>
 </mat-drawer>
 
 

@@ -1,11 +1,19 @@
 <div>
+    <div class="row">
+        <mat-form-field class="w-100">
+          <input matInput
+          placeholder="Group Name" 
+          autofocus [(ngModel)]="name">
+        </mat-form-field>
+      </div>
+    <br>
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="checked">
-      <mat-header-cell *matHeaderCellDef>Check</mat-header-cell>
+      <mat-header-cell style="width:25%" *matHeaderCellDef>Check</mat-header-cell>
       <mat-cell *matCellDef="let element"> 
         <mat-checkbox class="ml-3" [(ngModel)]="element.checked"></mat-checkbox>
       </mat-cell>

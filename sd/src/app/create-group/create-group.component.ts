@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatDialogRef } from '@angular/material';
 import { Friend } from '../Friend';
 import { FriendsService } from '../friends.service';
+import { Group } from '../Group';
 
 @Component({
   selector: 'app-create-group',
@@ -11,6 +12,7 @@ import { FriendsService } from '../friends.service';
 export class CreateGroupComponent implements OnInit {
 
   friends = [];
+  name = '';
   dataSource = new MatTableDataSource<Friend>(this.friends);
   displayedColumns: string[] = ['name', 'checked'];
 
@@ -23,7 +25,7 @@ export class CreateGroupComponent implements OnInit {
   }
 
   onClose() {
-    this.dialogRef.close(this.friends.filter(x => x.checked));
+    this.dialogRef.close(<Group>{name: this.name, users: this.friends.filter(x => x.checked)});
   }
 
 }
