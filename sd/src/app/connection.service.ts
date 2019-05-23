@@ -34,7 +34,7 @@ export class ConnectionService {
 
   connect = async (keyPair) => {
       this.name = await this.hashString(keyPair.publicKey);
-      this.ws = new this.wsImpl('ws://' + location.hostname + ':4201/' + this.name);
+      this.ws = new this.wsImpl('wss://' + location.hostname + ':4202/' + this.name);
       this.ws.onmessage = (evt) => {
         this.subj.next(evt.data);
       };
