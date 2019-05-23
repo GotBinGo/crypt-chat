@@ -12,3 +12,6 @@ body {
     margin-left: 0;
     margin-right: 0;
 }
+.mat-drawer-inner-container {
+    overflow: visible !important;
+}

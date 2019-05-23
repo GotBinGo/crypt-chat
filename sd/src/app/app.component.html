@@ -1,5 +1,5 @@
-<mat-drawer-container class="example-container h-100" >
-  <mat-drawer opened="true" #drawer class="example-sidenav" mode="side">
+<mat-drawer-container class="h-100" >
+  <mat-drawer opened="true" #drawer class="example-sidenav show-badge" mode="side">
     <div class="row">
       <button class="w-100 mt-2" (click)="addFriend()" mat-raised-button color="primary">
         Add Friend
@@ -25,10 +25,15 @@
         Delete All Groups
       </button>
     </div>
+    <div class="row">
+      <button class="w-100 mt-2" (click)="deleteMessages()" mat-raised-button color="warn">
+        Delete All Messages
+      </button>
+    </div>
     <br>
     <br>
     <div class="row" *ngFor="let a of groups">
-      <button class="w-100 mt-2" (click)="openGroup(a)" mat-raised-button [class.mat-primary]="a == selectedGroup">
+      <button class="w-100 mt-2" (click)="openGroup(a)" matBadgeColor="warn" matBadge="{{msgCount(a.name)}}" mat-raised-button [class.mat-primary]="a == selectedGroup">
           {{a.name}}
       </button>
     </div>

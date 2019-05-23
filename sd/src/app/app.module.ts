@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatSidenavModule, MatInputModule, MatIconModule, MatChipsModule, MatFormFieldModule, MatDialogModule, MatTableModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatSidenavModule, MatInputModule, MatIconModule, MatChipsModule, MatFormFieldModule, MatDialogModule, MatTableModule, MatCheckboxModule, MatBadgeModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { PromptComponent } from './prompt/prompt.component';
 import { FriendsComponent } from './friends/friends.component';
@@ -34,6 +34,7 @@ import { ChatComponent } from './chat/chat.component';
     ReactiveFormsModule,
     MatDialogModule,
     MatTableModule,
+    MatBadgeModule,
     MatCheckboxModule,
     RouterModule.forRoot([
       { path: '**', component: AppComponent }

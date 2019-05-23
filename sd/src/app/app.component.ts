@@ -35,6 +35,11 @@ export class AppComponent implements OnInit {
     cs.onMessage.subscribe(this.onMessage);
   }
 
+  msgCount(gid) {
+    const unseen = (this.messageService.getMessages()[gid] || []).length - (this.messageService.seen[gid] || 0);
+    return unseen === 0 ? '' : unseen;
+  }
+
   ngOnInit() {
     this.groups = this.groupService.getGroups();
   }
@@ -65,6 +70,7 @@ export class AppComponent implements OnInit {
 
       this.messageService.groupMessage(msg);
       if (this.selectedGroup) {
+        this.messageService.see(this.selectedGroup.name);
         this.messages = this.messageService.getMessages()[this.selectedGroup.name];
       }
       setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); }, 1);
@@ -129,6 +135,7 @@ export class AppComponent implements OnInit {
   openGroup = (g: Group) => {
     this.selectedGroup = g;
     this.messages = this.messageService.getMessages()[g.name];
+    this.messageService.see(g.name);
   }
 
   deleteGroups() {
@@ -136,5 +143,11 @@ export class AppComponent implements OnInit {
     this.groups = [];
     this.messages = [];
   }
+
+  deleteMessages() {
+    this.messageService.groups = {};
+    localStorage.messages = {};
+  }
+
 }
 

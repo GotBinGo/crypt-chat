@@ -10,6 +10,11 @@ export class MessageService {
   }
 
   groups = {};
+  seen = {};
+
+  see(gid) {
+    this.seen[gid] = (this.groups[gid] || []).length;
+  }
 
   groupMessage(msg) {
     const guid = msg.msg.guid;
