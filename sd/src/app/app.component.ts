@@ -178,7 +178,7 @@ export class AppComponent implements OnInit {
 
   deleteMessages() {
     this.messageService.groups = {};
-    localStorage.messages = {};
+    localStorage.clear();
   }
 
 }
