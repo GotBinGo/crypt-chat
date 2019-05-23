@@ -6,7 +6,7 @@
       autofocus [(ngModel)]="name">
     </mat-form-field>
   </div>
-  <select *ngIf="!scan" (change)="onDeviceSelectChange($event.target.value)">
+  <select (change)="onDeviceSelectChange($event.target.value)">
       <option value="" [selected]="!currentDevice">No Device Selected</option>
       <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
     </select>
