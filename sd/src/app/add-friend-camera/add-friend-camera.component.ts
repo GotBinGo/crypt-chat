@@ -27,6 +27,7 @@ export class AddFriendCameraComponent implements OnInit {
       for (const device of devices) {
           if (/back|rear|environment/gi.test(device.label)) {
               this.currentDevice = device;
+              this.scan = device.deviceId;
               this.scanner.changeDevice(device);
               break;
           }
