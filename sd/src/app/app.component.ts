@@ -136,6 +136,7 @@ export class AppComponent implements OnInit {
     this.selectedGroup = g;
     this.messages = this.messageService.getMessages()[g.name];
     this.messageService.see(g.name);
+    setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); }, 1);
   }
 
   deleteGroups() {

@@ -7,6 +7,7 @@ export class MessageService {
 
   constructor() {
     this.groups = JSON.parse(localStorage.messages || '{}');
+    this.seen = JSON.parse(localStorage.seen || '{}');
   }
 
   groups = {};
@@ -14,6 +15,7 @@ export class MessageService {
 
   see(gid) {
     this.seen[gid] = (this.groups[gid] || []).length;
+    localStorage.seen = JSON.stringify(this.seen);
   }
 
   groupMessage(msg) {
@@ -23,7 +25,7 @@ export class MessageService {
     }
 
     this.groups[guid].push(msg);
-    localStorage.setItem('messages', JSON.stringify(this.groups));
+    localStorage.messages = JSON.stringify(this.groups);
   }
 
   getMessages() {
