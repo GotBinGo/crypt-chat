@@ -111,6 +111,7 @@ export class AppComponent implements OnInit {
   addFriendCamera = () => {
     const dialogRef = this.dialog.open(AddFriendCameraComponent, {
       width: '40%',
+      height: '60%',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
     });
