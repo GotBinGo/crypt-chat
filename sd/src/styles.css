@@ -15,3 +15,7 @@ body {
 .mat-drawer-inner-container {
     overflow: visible !important;
 }
+
+.aclass {
+    transform: scale(0.95, 0.95);
+}
