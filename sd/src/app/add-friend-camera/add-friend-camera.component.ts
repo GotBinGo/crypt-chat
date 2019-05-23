@@ -24,7 +24,8 @@ export class AddFriendCameraComponent implements OnInit {
   ngOnInit() {
     this.scan = 'elk';
     this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
-      this.scan = 'alk';
+      this.scan = devices.length.toString();
+
       // this.currentDevice = devices[0];
     });
   }
