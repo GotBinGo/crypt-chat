@@ -91,8 +91,8 @@ export class AppComponent implements OnInit {
 
   showQr = () => {
     const dialogRef = this.dialog.open(ShowQrComponent, {
-      width: '100%',
-      maxWidth: '100%',
+      width: '99%',
+      maxWidth: '500px',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
     });
