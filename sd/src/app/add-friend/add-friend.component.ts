@@ -12,16 +12,10 @@ export class AddFriendComponent implements OnInit {
   @Input()
   publicKey = '';
 
-  scan = '';
-
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  scanCompleteHandler(e) {
-	this.scan = JSON.stringify(e);
   }
 
 }

@@ -12,6 +12,7 @@ import { GroupService } from './group.service';
 import { Group } from './Group';
 import { Friend } from './Friend';
 import { MessageService } from './message.service';
+import { AddFriendCameraComponent } from './add-friend-camera/add-friend-camera.component';
 declare var cryptoLib: any;
 
 @Component({
@@ -97,6 +98,18 @@ export class AppComponent implements OnInit {
 
   addFriend = () => {
     const dialogRef = this.dialog.open(AddFriendComponent, {
+      width: '40%',
+      data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe(x => {
+      if (x) {
+        this.friendsService.addFriend(x);
+      }
+    });
+  }
+  addFriendCamera = () => {
+    const dialogRef = this.dialog.open(AddFriendCameraComponent, {
       width: '40%',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false

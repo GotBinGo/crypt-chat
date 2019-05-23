@@ -12,12 +12,14 @@ import { AddFriendComponent } from './add-friend/add-friend.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { ChatComponent } from './chat/chat.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { AddFriendCameraComponent } from './add-friend-camera/add-friend-camera.component';
 @NgModule({
   declarations: [
     AppComponent,
     PromptComponent,
     FriendsComponent,
     AddFriendComponent,
+    AddFriendCameraComponent,
     CreateGroupComponent,
     ChatComponent,
   ],
@@ -44,6 +46,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [PromptComponent, FriendsComponent, AddFriendComponent, CreateGroupComponent]
+  entryComponents: [PromptComponent, FriendsComponent, AddFriendComponent, AddFriendCameraComponent, CreateGroupComponent]
 })
 export class AppModule { }
