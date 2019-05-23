@@ -81,8 +81,9 @@ export class AppComponent implements OnInit {
 
   showPublicKey = () => {
     const dialogRef = this.dialog.open(PromptComponent, {
-      width: '40%',
+      width: '80%',
       height: '60%',
+      maxWidth: '500px',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
     });
@@ -101,8 +102,9 @@ export class AppComponent implements OnInit {
 
   listFriends = () => {
     const dialogRef = this.dialog.open(FriendsComponent, {
-      width: '40%',
+      width: '80%',
       height: '60%',
+      maxWidth: '500px',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
     });
@@ -110,7 +112,8 @@ export class AppComponent implements OnInit {
 
   addFriend = () => {
     const dialogRef = this.dialog.open(AddFriendComponent, {
-      width: '40%',
+      width: '80%',
+      maxWidth: '500px',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
     });
@@ -122,8 +125,9 @@ export class AppComponent implements OnInit {
   }
   addFriendCamera = () => {
     const dialogRef = this.dialog.open(AddFriendCameraComponent, {
-      width: '40%',
+      width: '80%',
       height: '60%',
+      maxWidth: '500px',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
     });
@@ -136,8 +140,9 @@ export class AppComponent implements OnInit {
 
   createGroup = () => {
     const dialogRef = this.dialog.open(CreateGroupComponent, {
-      width: '40%',
+      width: '80%',
       height: '60%',
+      maxWidth: '500px',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
     });
