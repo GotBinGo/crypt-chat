@@ -11,6 +11,7 @@ import { FriendsComponent } from './friends/friends.component';
 import { AddFriendComponent } from './add-friend/add-friend.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { ChatComponent } from './chat/chat.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { ChatComponent } from './chat/chat.component';
     MatTableModule,
     MatBadgeModule,
     MatCheckboxModule,
+    ZXingScannerModule,
     RouterModule.forRoot([
       { path: '**', component: AppComponent }
     ]),
