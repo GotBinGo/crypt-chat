@@ -29,6 +29,7 @@ export class AddFriendCameraComponent implements OnInit {
 
   scanCompleteHandler(e) {
     this.scan = e.text;
+    this.publicKey = e.text;
   }
 
   onDeviceSelectChange(selected: string) {
