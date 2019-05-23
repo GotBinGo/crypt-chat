@@ -17,7 +17,7 @@ export class AddFriendCameraComponent implements OnInit {
   scanner: ZXingScannerComponent;
 
   scan = '';
-  currentDevice;
+  currentDevice: MediaDeviceInfo;
 
   constructor() { }
 
@@ -26,8 +26,8 @@ export class AddFriendCameraComponent implements OnInit {
     this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
       for (const device of devices) {
           if (/back|rear|environment/gi.test(device.label)) {
-              // this.scanner.changeDevice(device);
               this.currentDevice = device;
+              this.scanner.changeDevice(device);
               break;
           }
       }
