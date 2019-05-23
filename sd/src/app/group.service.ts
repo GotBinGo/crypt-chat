@@ -17,4 +17,8 @@ export class GroupService {
   getGroups() {
     return JSON.parse(localStorage.groups || '[]');
   }
+
+  deleteAllGroups() {
+    localStorage.groups = '[]';
+  }
 }

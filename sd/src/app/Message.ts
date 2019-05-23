@@ -11,7 +11,7 @@ export class Message {
 
     data_type?: 'TEXT';
     data?: string;
-    participants?: string[];
+    participants?: any[];
 }
 
 export class SignedMessage {

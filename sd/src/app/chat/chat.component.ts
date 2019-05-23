@@ -27,7 +27,7 @@ export class ChatComponent implements OnInit {
     const a = new Message({
       type: 'MESSAGE',
       from: JSON.parse(localStorage.keyPair).publicKey,
-      guid: 'guid',
+      guid: this.group.name,
       ts: + new Date(),
       data_type: 'TEXT',
       data: this.chatInput
@@ -37,12 +37,5 @@ export class ChatComponent implements OnInit {
       this.cs.send(await this.cs.hashString(f), a);
     }
     this.chatInput = '';
-  }
-  getFriendName(pub: string) {
-    // console.log('pub', pub);
-
-    // const hashes = this.friendsService.getFriends().map(async x => (await this.cs.hashString(x.publicKey)));
-    // console.log(hashes[0]);
-    // .filter(async x => await x === (await this.cs.hashString(pub)))[0].name;
   }
 }

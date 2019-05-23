@@ -10,7 +10,6 @@ export class FriendsService {
 
   addFriend(f: Friend) {
     const friends = this.getFriends();
-    console.log(friends);
     friends.push(f);
     localStorage.friends = JSON.stringify(friends);
   }

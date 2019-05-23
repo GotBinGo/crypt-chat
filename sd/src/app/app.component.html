@@ -1,7 +1,7 @@
 <mat-drawer-container class="example-container h-100" >
   <mat-drawer opened="true" #drawer class="example-sidenav" mode="side">
     <div class="row">
-      <button class="w-100 mt-2" (click)="addFriend()" mat-raised-button>
+      <button class="w-100 mt-2" (click)="addFriend()" mat-raised-button color="primary">
         Add Friend
       </button>
     </div>
@@ -16,14 +16,19 @@
       </button>
     </div>
     <div class="row">
-      <button class="w-100 mt-2" (click)="createGroup()" mat-raised-button>
+      <button class="w-100 mt-2" (click)="createGroup()" mat-raised-button color="primary">
         Create Group
+      </button>
+    </div>
+    <div class="row">
+      <button class="w-100 mt-2" (click)="deleteGroups()" mat-raised-button color="warn">
+        Delete All Groups
       </button>
     </div>
     <br>
     <br>
     <div class="row" *ngFor="let a of groups">
-      <button class="w-100 mt-2" (click)="openGroup(a)" mat-raised-button>
+      <button class="w-100 mt-2" (click)="openGroup(a)" mat-raised-button [class.mat-primary]="a == selectedGroup">
           {{a.name}}
       </button>
     </div>

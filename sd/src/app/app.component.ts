@@ -10,6 +10,8 @@ import { FriendsService } from './friends.service';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { GroupService } from './group.service';
 import { Group } from './Group';
+import { Friend } from './Friend';
+import { MessageService } from './message.service';
 declare var cryptoLib: any;
 
 @Component({
@@ -28,6 +30,7 @@ export class AppComponent implements OnInit {
   constructor(private cs: ConnectionService,
     private friendsService: FriendsService,
     private groupService: GroupService,
+    private messageService: MessageService,
     public dialog: MatDialog) {
     cs.onMessage.subscribe(this.onMessage);
   }
@@ -38,19 +41,32 @@ export class AppComponent implements OnInit {
 
   onMessage = async (m) => {
     const msg = JSON.parse(m);
-    console.log(msg);
     if (msg.msg.type === 'HELLO') {
-      this.groupService.addGroup(<Group>{name: msg.msg.guid, users: [...msg.msg.participants, msg.msg.from]});
+
+      const knownNames = this.friendsService.getFriends();
+      knownNames.push({publicKey: JSON.parse(localStorage.keyPair).publicKey, name: 'self'});
+      const incomingNames = msg.msg.participants;
+      const newPeople = incomingNames.filter(x => knownNames.map(y => y.publicKey.trim()).indexOf(x.publicKey.trim()) === -1);
+      // TODO csak akkor elfogadni, ha már ismerős
+      newPeople.forEach(x => { // ismeretlen csoporttagok felvétele, célszerű lenne megerősítés
+        this.friendsService.addFriend(<Friend>{name: x.name, publicKey: x.publicKey});
+      });
+
+
+      this.groupService.addGroup(<Group>{name: msg.msg.guid, users: [...msg.msg.participants.map(x => x.publicKey), msg.msg.from]});
+      const idx = this.groups.indexOf(this.selectedGroup);
       this.groups = this.groupService.getGroups();
+      this.selectedGroup = this.groups[idx];
     } else if (msg.msg.type === 'MESSAGE') {
       msg.self = await this.cs.hashString(msg.msg.from) === msg.to;
       if (!msg.self) {
-        console.log(this.friendsService.getFriends().map(x => x.publicKey.trim())[0]);
-        console.log(msg.msg.from.trim());
         msg.fromName = this.friendsService.getFriends().filter(x => msg.msg.from.trim() === x.publicKey.trim())[0].name;
       }
-      this.messages.push(msg);
 
+      this.messageService.groupMessage(msg);
+      if (this.selectedGroup) {
+        this.messages = this.messageService.getMessages()[this.selectedGroup.name];
+      }
       setTimeout(() => {document.getElementById('scroll').scrollTo(0, 999999999); }, 1);
     }
   }
@@ -100,7 +116,7 @@ export class AppComponent implements OnInit {
           from: JSON.parse(localStorage.keyPair).publicKey,
           guid: x.name,
           ts: + new Date(),
-          participants: x.users.map(y => y.publicKey)
+          participants: x.users
         });
         this.cs.send(await this.cs.hashString(JSON.parse(localStorage.keyPair).publicKey), a); // self
         for (const f of x.users.map(y => y.publicKey)) { // group
@@ -111,9 +127,14 @@ export class AppComponent implements OnInit {
   }
 
   openGroup = (g: Group) => {
-    console.log(g);
     this.selectedGroup = g;
+    this.messages = this.messageService.getMessages()[g.name];
   }
 
+  deleteGroups() {
+    this.groupService.deleteAllGroups();
+    this.groups = [];
+    this.messages = [];
+  }
 }
 
