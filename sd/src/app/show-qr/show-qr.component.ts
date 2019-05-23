@@ -2,20 +2,19 @@ import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-prompt',
-  templateUrl: './prompt.component.html',
-  styleUrls: ['./prompt.component.css']
+  selector: 'app-qr',
+  templateUrl: './show-qr.component.html',
+  styleUrls: ['./show-qr.component.css']
 })
-export class PromptComponent implements OnInit {
+export class ShowQrComponent implements OnInit {
 
   @Input()
   text = 'Mi legyen a neved?';
   pre = '';
 
   elementType = 'url';
-  value = 'Techiediaries';
   constructor(
-    public dialogRef: MatDialogRef<PromptComponent>,
+    public dialogRef: MatDialogRef<ShowQrComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.pre = data.pre;
     }

@@ -13,10 +13,13 @@ import { CreateGroupComponent } from './create-group/create-group.component';
 import { ChatComponent } from './chat/chat.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { AddFriendCameraComponent } from './add-friend-camera/add-friend-camera.component';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { ShowQrComponent } from './show-qr/show-qr.component';
 @NgModule({
   declarations: [
     AppComponent,
     PromptComponent,
+    ShowQrComponent,
     FriendsComponent,
     AddFriendComponent,
     AddFriendCameraComponent,
@@ -40,12 +43,13 @@ import { AddFriendCameraComponent } from './add-friend-camera/add-friend-camera.
     MatBadgeModule,
     MatCheckboxModule,
     ZXingScannerModule,
+    NgxQRCodeModule,
     RouterModule.forRoot([
       { path: '**', component: AppComponent }
     ]),
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [PromptComponent, FriendsComponent, AddFriendComponent, AddFriendCameraComponent, CreateGroupComponent]
+  entryComponents: [PromptComponent, ShowQrComponent, FriendsComponent, AddFriendComponent, AddFriendCameraComponent, CreateGroupComponent]
 })
 export class AppModule { }

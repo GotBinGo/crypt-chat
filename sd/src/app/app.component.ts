@@ -13,6 +13,7 @@ import { Group } from './Group';
 import { Friend } from './Friend';
 import { MessageService } from './message.service';
 import { AddFriendCameraComponent } from './add-friend-camera/add-friend-camera.component';
+import { ShowQrComponent } from './show-qr/show-qr.component';
 declare var cryptoLib: any;
 
 @Component({
@@ -80,6 +81,16 @@ export class AppComponent implements OnInit {
 
   showPublicKey = () => {
     const dialogRef = this.dialog.open(PromptComponent, {
+      width: '40%',
+      height: '60%',
+      data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
+      disableClose: false
+    });
+    dialogRef.componentInstance.text = '';
+  }
+
+  showQr = () => {
+    const dialogRef = this.dialog.open(ShowQrComponent, {
       width: '40%',
       data: {pre: JSON.parse(localStorage.keyPair).publicKey.trim()},
       disableClose: false
