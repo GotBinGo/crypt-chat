@@ -11,7 +11,7 @@
       <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
     </select>
   {{scan}}
-  <zxing-scanner *ngIf="!scan" #scanner [(device)]="currentDevice" (scanComplete)="scanCompleteHandler($event)" [formats]="['QR_CODE']" [tryHarder]="true"></zxing-scanner>
+  <zxing-scanner #scanner [(device)]="currentDevice" (scanComplete)="scanCompleteHandler($event)" [formats]="['QR_CODE']" [tryHarder]="true"></zxing-scanner>
   <button mat-raised-button color="primary" class="float-right" [mat-dialog-close]="{name: name, publicKey: publicKey}">
     Add
   </button>
