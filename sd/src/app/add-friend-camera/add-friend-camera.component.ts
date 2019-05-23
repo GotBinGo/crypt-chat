@@ -27,7 +27,6 @@ export class AddFriendCameraComponent implements OnInit {
       for (const a of devices) {
         this.scan = a.deviceId;
         this.currentDevice = a;
-        break;
       }
     });
   }
